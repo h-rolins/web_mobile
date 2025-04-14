@@ -4,5 +4,5 @@ from sistema.views import Login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path ('', Login.as view())
+    path ('', Login.as_view(), name='login')
 ]
