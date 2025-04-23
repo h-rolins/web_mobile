@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'veiculo',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sistema',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'juliane2025',
         'HOST': '127.0.0.1',
         'PORT': 5432,
     }
@@ -126,3 +127,4 @@ STATICFILES_DIRS = [BASE_DIR/'sistema'/'static']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/'
