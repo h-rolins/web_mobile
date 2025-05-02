@@ -1,94 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Portal de Carros</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-right: 20px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .menu {
-      display: flex;
-      align-items: center;
-    }
-
-    .search-bar {
-      margin-right: 20px;
-    }
-
-    .search-bar input {
-      padding: 5px;
-      font-size: 14px;
-    }
-
-    .search-bar button {
-      padding: 5px 10px;
-      background-color: #1abc9c;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-
-    .logout-button {
-      background-color: #e74c3c;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    main {
-      padding: 20px;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="menu">
-      <nav>
-        <a href="#">Listar Carros</a>
-        <a href="#">Cadastrar Carros</a>
-      </nav>
+{% extends 'base.html' %} 
+{% block titulo %}Lista de veículos{% endblock %} 
+{% block conteudo %}
+<div class="container px-5">
+    <form action="/veiculo/" method="GET">
+    <div class="d-flex justify-content-between align-items-center gap-3  mb-4">
+        <div class="d-flex justify-content-between align-items-center gap-3  mb-4 flex-1">
+            <h1>Veículos</h1>
+            <h6 class="text-info mt-2">({{veiculos|length}} disponíveis)</h6>
+        </div>
+        <div class="d-flex btn-group flex-0">
+            <input class="form-control" name="pesquisa" type="text" placeholder="Pesquisar" />
+            <input class="btn btn-info text-white fw-bolder" type="submit" value="Pesquisar" />
+        </div>
     </div>
-    <div class="menu">
-      <div class="search-bar">
-        <input type="text" placeholder="Buscar carro...">
-        <button>Pesquisar</button>
-      </div>
-      <button class="logout-button">Logout</button>
+    </form>
+    <div class="d-flex flex-column gap-4 overflow-auto">
+        {% for v in veiculos %}
+        <div class="card px-4 py-4 rounded d-flex flex-column gap-1">
+            {% if v.foto %}
+                <img src="/{{v.foto}}" class="img-fluid rounded mb-2" style="max-height: 340px; object-fit: cover" />
+            {% else %}
+                Veículo sem foto
+            {% endif %}
+            <div>
+                <h6 class="m-0">{{v.get_marca_display}}</h5>
+                <h3 class="mb-4">{{v.modelo}}</h4>
+                <span class="badge bg-secondary text-white">{{v.ano}}</span>
+                <span class="badge bg-secondary text-white">{{v.get_cor_display}}</span>
+            </div>
+            <hr />
+            <div class="d-flex gap-3 justify-content-end">
+                <a href="/veiculo/{{v.id}}" class="btn  btn-outline-info fw-bolder">
+                    Editar
+                  </a>
+                <a href="/veiculo/deletar/{{v.id}}" class="btn btn-info text-white fw-bolder">
+                    Excluir
+                  </a>
+                <!-- <btn class="">Editar</btn> -->
+                <!-- <btn class="btn btn-info text-white fw-bolder">Excluir</btn> -->
+            </div>
+        </div>
+        {% endfor %}
     </div>
-  </header>
-
-  <main>
-    <h1>Bem-vindo ao Portal de Carros</h1>
-    <p>Aqui você pode cadastrar novos carros e visualizar a lista completa dos veículos disponíveis.</p>
-    <p>Há um total de {{veiculos|length}} veiculo(s)</p>
-  </main>
-
-</body>
-</html>
+</div>
+{% endblock %}
