@@ -18,7 +18,7 @@
         {% for v in veiculos %}
         <div class="card px-4 py-4 rounded d-flex flex-column gap-1">
             {% if v.foto %}
-                <img src="/{{v.foto}}" class="img-fluid rounded mb-2" style="max-height: 340px; object-fit: cover" />
+                <img src="{{v.foto.url}}" class="img-fluid rounded mb-2" style="max-height: 340px; object-fit: cover" />
             {% else %}
                 Veículo sem foto
             {% endif %}
