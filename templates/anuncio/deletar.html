@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Deletar Anúncio{% endblock %}
+
+{% block conteudo %}
+<div class="container px-5 py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/anuncio/deletar/{{ object.pk }}/" method="post">
+                {% csrf_token %}
+                <div class="text-center">
+                    <div class="alert alert-danger" role="alert">
+                        <p>Tem certeza que deseja excluir o anúncio <strong>{{ object.titulo }}</strong>?</p>
+                    </div>
+                    <input type="submit" value="Confirmar" class="btn btn-danger">
+                    <a href="/anuncio/" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

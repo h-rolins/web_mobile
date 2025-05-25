@@ -1,0 +1,9 @@
+<form action="/veiculo/deletar/{{ object.pk }}/" method="post">
+    {% csrf_token %}
+    <div style="text-align: center;">
+        <div class="alert alert-danger" role="alert">
+            <p>Tem certeza que deseja excluir o veículo <strong>{{ object.modelo }}</strong>?</p>
+        </div>
+        <input type="submit" value="Confirmar" class="btn btn-danger">
+    </div>
+</form>

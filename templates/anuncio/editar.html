@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Atualizar Anúncio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 40px;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Atualizar Anúncio</h2>
+
+  <form action="/anuncio/{{ object.pk }}/" method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <div style="color: red;">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" value="{{ anuncio.titulo }}" placeholder="Ex: Vendo carro seminovo" required>
+
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao" rows="4" placeholder="Detalhes do anúncio" required>{{ anuncio.descricao }}</textarea>
+
+    <label for="preco">Preço (R$):</label>
+    <input type="text" id="preco" name="preco" value="{{ anuncio.preco }}" required>
+
+    <label for="ativo">Ativo:</label>
+    <select id="ativo" name="ativo">
+      <option value="True" {% if anuncio.ativo %}selected{% endif %}>Sim</option>
+      <option value="False" {% if not anuncio.ativo %}selected{% endif %}>Não</option>
+    </select>
+
+    <label for="veiculo">Veículo:</label>
+    {{ form.veiculo }}
+
+    <button type="submit">Atualizar Anúncio</button>
+  </form>
+
+</body>
+</html>

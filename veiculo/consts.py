@@ -7,7 +7,8 @@ OPCOES_MARCAS = (
     (7, u'FORD'),
     (8, u'HONDA'),
     (9, u'HYUNDAI'),
-    (10, u'VOLKSWAGEN')
+    (10, u'VOLKSWAGEN'),
+    (11, u'TOYOTA')
 )
 
 OPCOES_CORES = (

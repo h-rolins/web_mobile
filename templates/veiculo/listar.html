@@ -16,15 +16,14 @@
     </form>
     <div class="d-flex flex-column gap-4 overflow-auto">
         {% for v in veiculos %}
-        <div class="card px-4 py-4 rounded d-flex flex-column gap-1">
+        <div class="card px-4 py-4 rounded d-flex flex-column gap-1 align-items-center">
+            <h3 class="mb-3">{{ v.get_marca_display }} - {{ v.modelo }}</h3>
             {% if v.foto %}
-                <img src="{{v.foto.url}}" class="img-fluid rounded mb-2" style="max-height: 340px; object-fit: cover" />
+                <img src="{{v.foto.url}}" class="img-fluid rounded mb-2" style="width: 450px; height: 250px; overflow: hidden; border-radius: 8px;" />
             {% else %}
                 Veículo sem foto
             {% endif %}
-            <div>
-                <h6 class="m-0">{{v.get_marca_display}}</h5>
-                <h3 class="mb-4">{{v.modelo}}</h4>
+            <div> 
                 <span class="badge bg-secondary text-white">{{v.ano}}</span>
                 <span class="badge bg-secondary text-white">{{v.get_cor_display}}</span>
             </div>

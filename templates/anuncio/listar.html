@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block titulo %}Lista de Anúncios{% endblock %}
+
+{% block conteudo %}
+<div class="container px-5">
+    <form action="/anuncio/" method="GET">
+        <div class="d-flex justify-content-between align-items-center gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-center gap-3 mb-4 flex-1">
+                <h1>Anúncios</h1>
+                <h6 class="text-info mt-2">({{ anuncios|length }} encontrados)</h6>
+            </div>
+            <div class="d-flex btn-group flex-0">
+                <input class="form-control" name="pesquisa" type="text" placeholder="Pesquisar" />
+                <input class="btn btn-info text-white fw-bolder" type="submit" value="Pesquisar" />
+            </div>
+        </div>
+    </form>
+
+    <div class="d-flex flex-column gap-4 overflow-auto">
+        {% for a in anuncios %}
+        <div class="card px-4 py-4 rounded d-flex flex-row gap-3 align-items-center">
+            <!-- Imagem -->
+            <div style="width: 550px; height: 250px; overflow: hidden; border-radius: 8px;">
+                {% if a.veiculo.foto %}
+                <img src="{{ a.veiculo.foto.url }}" alt="Imagem do veículo" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="width: 100%; height: 100%;">
+                    Sem imagem
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Informações -->
+            <div class="d-flex flex-column flex-grow-1">
+                <h3 class="text-center w-100">{{ a.titulo }}</h3>
+                <p>{{ a.descricao }}</p>
+                <span class="mb-1"> <strong>Preço:</strong> R$ {{ a.preco }}</span>
+                <span class="mb-1"> <strong>Status:</strong> {% if a.ativo %}<span class="text-success">Ativo</span>{% else %}<span class="text-danger">Inativo</span>{% endif %}</span>
+                <span class="mb-1"> <strong>Criado em:</strong> {{ a.criado_em|date:"d/m/Y H:i" }}</span>
+                <span class="mb-1"> <strong>Atualizado em:</strong> {{ a.atualizado_em|date:"d/m/Y H:i" }}</span>
+                <span class="mb-1"> <strong>Anunciante:</strong> {{ a.anunciante.get_full_name|default:a.anunciante.username }}</span>
+                <span class="mb-1"> <strong>Veículo:</strong> {{ a.veiculo }}</span>
+
+                <!-- Ações -->
+                <div class="d-flex gap-3 justify-content-end mt-3">
+                    <a href="/anuncio/{{ a.id }}/" class="btn btn-outline-info fw-bolder">Editar</a>
+                    <a href="/anuncio/deletar/{{ a.id }}/" class="btn btn-info text-white fw-bolder">Excluir</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
