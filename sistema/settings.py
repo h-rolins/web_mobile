@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_86-pj8)o@tcix58a17)*^k=q8a5d!3vt1$jdnz_kyybtgv51m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [] 
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'veiculo.apps.VeiculoConfig',
-    'anuncio.apps.AnuncioConfig'
+    'anuncio.apps.AnuncioConfig',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 ROOT_URLCONF = 'sistema.urls'
 
@@ -130,3 +141,5 @@ STATICFILES_DIRS = [BASE_DIR/'sistema'/'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/'
+
+CORS_ORIGIN_ALLOW_ALL = True
